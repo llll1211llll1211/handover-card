@@ -119,9 +119,8 @@ const ko = {
     deleteFailed: '삭제에 실패했습니다.',
     loadFailed: '카드를 불러오지 못했습니다.',
 
-    edit: '결과 고치기',
-    editNote:
-      '음성 인식이 틀린 곳을 직접 고칠 수 있습니다. 고쳐도 번역과 요약이 다시 만들어지지는 않으니, 이름처럼 잘못 들린 말이 있으면 요약과 전체 내용을 함께 고쳐 주세요.',
+    edit: '결과 수정',
+    editNote: '음성 인식이 틀린 곳을 직접 고칠 수 있습니다.',
     editSave: '저장',
     editCancel: '취소',
     editSaved: '고친 내용을 저장했습니다.',
@@ -466,9 +465,8 @@ const en: Messages = {
     deleteFailed: 'Could not delete the card.',
     loadFailed: 'Could not load this card.',
 
-    edit: 'Fix results',
-    editNote:
-      'You can correct what speech recognition got wrong. Editing does not regenerate the translation or the summary, so if a name was misheard, fix the summary and the full text together.',
+    edit: 'Edit results',
+    editNote: 'You can correct what speech recognition got wrong.',
     editSave: 'Save',
     editCancel: 'Cancel',
     editSaved: 'Your changes were saved.',
