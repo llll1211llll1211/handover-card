@@ -176,6 +176,22 @@ export interface HandoverCardCreatedResponse {
   status: HandoverCardStatus
 }
 
+/**
+ * AI 결과를 사람이 직접 고칠 때 보내는 값. 보내지 않은 항목은 서버가 그대로 둔다.
+ *
+ * 주의: 이 요청은 번역·요약을 다시 돌리지 않는다. 전사만 고치면 번역문과 요약은
+ * 틀린 채로 남으므로, 화면은 세 가지를 함께 고치게 해야 한다.
+ *
+ * transcript/translatedText 는 공백만으로 채울 수 없다(서버 패턴 검증). 지우고 싶으면
+ * 보내지 않는 수밖에 없고, 그러면 기존 값이 유지된다.
+ */
+export interface UpdateHandoverResultRequest {
+  transcript?: string
+  translatedText?: string
+  /** 보내면 기존 요약을 통째로 대체한다. 원문·번역이 모두 빈 항목은 저장되지 않는다. */
+  summary?: SummaryDto
+}
+
 export interface PageResponse<T> {
   content: T[]
   page: number

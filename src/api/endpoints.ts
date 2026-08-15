@@ -14,6 +14,7 @@ import type {
   TeamDetailResponse,
   TeamResponse,
   TokenResponse,
+  UpdateHandoverResultRequest,
 } from './types'
 
 // ---------- 인증 ----------
@@ -103,6 +104,13 @@ export const teams = {
 
   rejectJoinRequest: (requestId: number) =>
     request<void>(`/api/teams/join-requests/${requestId}/reject`, { method: 'POST' }),
+
+  /**
+   * 내가 낸 대기 중인 신청을 철회한다. 기록이 남지 않아 곧바로 다시 신청할 수 있다.
+   * 내 신청이 아니거나 없으면 404, 이미 승인·거절됐으면 409.
+   */
+  cancelJoinRequest: (requestId: number) =>
+    request<void>(`/api/teams/my-join-requests/${requestId}`, { method: 'DELETE' }),
 }
 
 // ---------- 인수인계 카드 ----------
@@ -209,4 +217,19 @@ export const cards = {
 
   reprocess: (id: number) =>
     request<HandoverCardCreatedResponse>(`/api/handover-cards/${id}/reprocess`, { method: 'POST' }),
+
+  /**
+   * AI 결과(전사·번역·요약)를 사람이 직접 고친다. 고친 카드 전체가 응답으로 온다.
+   *
+   * reprocess 와 다르다 — reprocess 는 원본 오디오부터 다시 돌려서 같은 인식 오류가
+   * 또 나오고, 이쪽은 텍스트를 그대로 덮어쓴다. 대신 번역·요약을 다시 만들지 않으므로
+   * 셋을 함께 고쳐야 앞뒤가 맞는다.
+   *
+   * 작성자가 아니면 404(존재를 숨기려는 응답), 아직 COMPLETED 가 아니면 409.
+   */
+  updateResult: (id: number, payload: UpdateHandoverResultRequest) =>
+    request<HandoverCardResponse>(`/api/handover-cards/${id}/result`, {
+      method: 'PATCH',
+      json: payload,
+    }),
 }

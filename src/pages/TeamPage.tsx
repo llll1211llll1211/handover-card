@@ -414,6 +414,7 @@ function NoTeam({
                   <th>{t.team.colTeam}</th>
                   <th>{t.team.colStatus}</th>
                   <th>{t.team.colRequestedAt}</th>
+                  <th>{t.team.colCancel}</th>
                 </tr>
               </thead>
               <tbody>
@@ -424,6 +425,27 @@ function NoTeam({
                       <JoinStatusBadge status={request.status} />
                     </td>
                     <td className="muted">{formatRelative(request.requestedAt)}</td>
+                    <td>
+                      {/* 이미 승인·거절된 신청은 서버가 409 로 막는다. 버튼 자체를 두지 않는다. */}
+                      {request.status === 'PENDING' ? (
+                        <button
+                          type="button"
+                          className="btn btn--danger"
+                          disabled={busy}
+                          onClick={() => {
+                            if (!window.confirm(t.team.confirmCancelRequest(request.teamName))) return
+                            void run(
+                              () => cancelJoinRequest(request.id, t.team.cancelRequestGone),
+                              t.team.cancelRequestDone(request.teamName),
+                            )
+                          }}
+                        >
+                          {t.team.cancelRequest}
+                        </button>
+                      ) : (
+                        <span className="faint">—</span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -433,6 +455,24 @@ function NoTeam({
       )}
     </>
   )
+}
+
+/**
+ * 가입 신청 취소.
+ *
+ * 화면이 목록을 들고 있는 사이에 팀장이 승인·거절하면 409 가 온다. API 가 에러 본문
+ * 형식을 명세하지 않아 서버 문구를 그대로 띄우면 뜻이 통하지 않으므로 바꿔 준다.
+ * 404(내 신청이 아니거나 이미 사라짐)도 사용자에게는 같은 상황이다.
+ */
+async function cancelJoinRequest(requestId: number, goneMessage: string) {
+  try {
+    await teams.cancelJoinRequest(requestId)
+  } catch (caught) {
+    if (caught instanceof ApiError && (caught.status === 409 || caught.status === 404)) {
+      throw new ApiError(caught.status, goneMessage, caught.body)
+    }
+    throw caught
+  }
 }
 
 function JoinStatusBadge({ status }: { status: JoinRequestResponse['status'] }) {

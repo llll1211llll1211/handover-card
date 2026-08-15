@@ -1566,6 +1566,53 @@ textarea {
   color: var(--text-muted);
 }
 
+/* ---------- 결과 고치기 ---------- */
+
+/*
+ * 여러 줄 입력. .input 의 골격을 그대로 쓰되 세로로만 늘어나게 한다.
+ * 가로 크기까지 끌 수 있으면 옆 칸과 어긋나 레이아웃이 무너진다.
+ */
+.input--area {
+  display: block;
+  resize: vertical;
+  min-height: 76px;
+  line-height: 1.6;
+}
+
+.input--area-sm {
+  min-height: 52px;
+}
+
+.edit-field {
+  display: block;
+  margin-top: 12px;
+}
+
+.edit-field .field-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* 항목 하나가 한 덩어리로 보여야 어느 원문과 번역이 짝인지 알 수 있다 */
+.edit-entry {
+  margin-top: 12px;
+  padding: 12px 14px 14px;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+/* 첫 칸은 덩어리 안쪽 여백이 이미 자리를 잡아 준다 */
+.edit-entry .edit-field:first-child {
+  margin-top: 0;
+}
+
+.edit-entry-remove {
+  margin-top: 10px;
+  padding-left: 0;
+  color: var(--danger);
+}
+
 .transcript-block + .transcript-block {
   margin-top: 14px;
 }

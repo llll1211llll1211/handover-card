@@ -118,6 +118,21 @@ const ko = {
       '이 카드는 삭제할 수 없습니다. 카드를 만든 사람만 삭제할 수 있고, 받은 카드는 보낸 사람에게 삭제를 요청해야 합니다.',
     deleteFailed: '삭제에 실패했습니다.',
     loadFailed: '카드를 불러오지 못했습니다.',
+
+    edit: '결과 고치기',
+    editNote:
+      '음성 인식이 틀린 곳을 직접 고칠 수 있습니다. 고쳐도 번역과 요약이 다시 만들어지지는 않으니, 이름처럼 잘못 들린 말이 있으면 요약과 전체 내용을 함께 고쳐 주세요.',
+    editSave: '저장',
+    editCancel: '취소',
+    editSaved: '고친 내용을 저장했습니다.',
+    editDenied: '이 카드는 고칠 수 없습니다. 카드를 만든 사람만 결과를 고칠 수 있습니다.',
+    editNotReady: '아직 처리가 끝나지 않아 고칠 수 없습니다. 완료된 뒤에 다시 시도해 주세요.',
+    editFailed: '저장에 실패했습니다.',
+    editAddEntry: '항목 추가',
+    editRemoveEntry: '항목 지우기',
+    editEntryHint: '두 칸을 모두 비우면 저장할 때 그 항목이 사라집니다.',
+    editTextHint: '전체 내용은 비울 수 없습니다. 비워 두면 원래 내용이 그대로 남습니다.',
+    editNoChanges: '고친 곳이 없습니다.',
   },
 
   compose: {
@@ -249,10 +264,17 @@ const ko = {
     applyDone: (team: string) => `"${team}" 팀에 가입을 신청했습니다. 팀장이 승인하면 팀원이 됩니다.`,
 
     myRequestsTitle: '내 신청 내역',
-    myRequestsNote: '내가 보낸 가입 신청과 그 결과입니다.',
+    myRequestsNote: '내가 보낸 가입 신청과 그 결과입니다. 대기 중인 신청은 취소할 수 있습니다.',
     colTeam: '팀',
     colStatus: '상태',
     colRequestedAt: '신청 일시',
+    colCancel: '취소',
+    cancelRequest: '신청 취소',
+    confirmCancelRequest: (team: string) => `"${team}" 팀 가입 신청을 취소할까요?`,
+    cancelRequestDone: (team: string) =>
+      `"${team}" 팀 가입 신청을 취소했습니다. 다른 팀에 신청하거나 다시 신청할 수 있습니다.`,
+    cancelRequestGone:
+      '이미 처리된 신청이라 취소할 수 없습니다. 그 사이에 팀장이 승인하거나 거절한 것입니다.',
     joinPending: '대기 중',
     joinApproved: '승인됨',
     joinRejected: '거절됨',
@@ -443,6 +465,22 @@ const en: Messages = {
       'This card cannot be deleted. Only the person who created it can delete it — ask the sender to remove a card you received.',
     deleteFailed: 'Could not delete the card.',
     loadFailed: 'Could not load this card.',
+
+    edit: 'Fix results',
+    editNote:
+      'You can correct what speech recognition got wrong. Editing does not regenerate the translation or the summary, so if a name was misheard, fix the summary and the full text together.',
+    editSave: 'Save',
+    editCancel: 'Cancel',
+    editSaved: 'Your changes were saved.',
+    editDenied: 'This card cannot be edited. Only the person who created it can fix the results.',
+    editNotReady:
+      'Processing has not finished yet, so this card cannot be edited. Try again once it completes.',
+    editFailed: 'Could not save your changes.',
+    editAddEntry: 'Add item',
+    editRemoveEntry: 'Remove item',
+    editEntryHint: 'Clearing both fields removes that item when you save.',
+    editTextHint: 'The full text cannot be emptied — leave it blank and the original stays.',
+    editNoChanges: 'Nothing was changed.',
   },
 
   compose: {
@@ -578,10 +616,18 @@ const en: Messages = {
       `Requested to join "${team}". You become a member once the lead approves.`,
 
     myRequestsTitle: 'Your requests',
-    myRequestsNote: 'Join requests you have sent and how they were handled.',
+    myRequestsNote:
+      'Join requests you have sent and how they were handled. Pending requests can be cancelled.',
     colTeam: 'Team',
     colStatus: 'Status',
     colRequestedAt: 'Requested',
+    colCancel: 'Cancel',
+    cancelRequest: 'Cancel request',
+    confirmCancelRequest: (team: string) => `Cancel your request to join "${team}"?`,
+    cancelRequestDone: (team: string) =>
+      `Cancelled your request to join "${team}". You can now apply to another team or try again.`,
+    cancelRequestGone:
+      'This request has already been handled — the team lead approved or declined it in the meantime.',
     joinPending: 'Pending',
     joinApproved: 'Approved',
     joinRejected: 'Declined',
